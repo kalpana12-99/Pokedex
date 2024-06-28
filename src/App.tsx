@@ -1,14 +1,9 @@
-import { fetchPokemon } from "./api";
-import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  useEffect(() => {
-    fetchPokemon();
-  }, []);
-
   return (
     <>
-      <div>Pokedex</div>
+      <Outlet />
     </>
   );
 }

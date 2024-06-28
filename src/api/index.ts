@@ -9,7 +9,6 @@ const basePokemonDetailsUrl = "https://pokeapi.co/api/v2/pokemon";
 
 export const fetchPokemon = async (): Promise<
   Array<{
-    id: number;
     name: string;
     url: string;
   }>
@@ -22,14 +21,12 @@ export const fetchPokemon = async (): Promise<
     let id = 0;
 
     const pokemons: Array<{
-      id: number;
       name: string;
       url: string;
     }> = data.map((pokemon: { name: string; url: string }) => {
       id++;
 
       return {
-        id,
         name: pokemon.name,
         url: `${baseImageUrl}/${id}.svg`,
       };
@@ -38,6 +35,19 @@ export const fetchPokemon = async (): Promise<
     return pokemons;
   } catch (error) {
     console.log("Error in fetching pokemon", error);
+    return [];
+  }
+};
+
+// pokemon details
+
+export const getPokemonDetails = async (name: string): Promise<any> => {
+  try {
+    const response = await axios.get(`${basePokemonDetailsUrl}/${name}`);
+
+    return response.data;
+  } catch (error) {
+    console.log("error", error);
     return [];
   }
 };
