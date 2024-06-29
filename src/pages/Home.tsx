@@ -10,7 +10,9 @@ const Home = () => {
 
   const [inputField, setInputField] = useState("");
 
-  const { pokemons, setPokemons } = useStore();
+  const pokemons = useStore((state: any) => state.pokemons);
+
+  const setPokemons = useStore((state: any) => state.setPokemons);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputField(e.target.value);
