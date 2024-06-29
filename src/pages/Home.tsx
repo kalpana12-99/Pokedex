@@ -2,14 +2,25 @@ import { SearchBar } from "../components/SearchBar";
 import { HoverEffect } from "../components/HoverEffect";
 import { fetchPokemon } from "../api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const [inputField, setInputField] = useState("");
+
   const [pokemons, setPokemons] = useState<
     Array<{ name: string; url: string }>
   >([]);
 
-  const handleChange = () => {};
-  const handleSubmit = () => {};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputField(e.target.value);
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    navigate(`/${inputField.trim().toLowerCase()}`);
+  };
 
   useEffect(() => {
     const fetchPokemonsData = async () => {
