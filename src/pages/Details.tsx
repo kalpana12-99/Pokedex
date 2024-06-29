@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPokemonDetails, baseImageUrl } from "../api";
 import { Card } from "../components/HoverEffect";
+import Loader from "../components/Loader"; //as written default no need to use the {}
 
 const Details = () => {
   const { name } = useParams(); //const name = useParams().name
@@ -30,8 +31,8 @@ const Details = () => {
   }, []);
 
   return loading ? (
-    <div>
-      <p className="text-white">loading...</p>
+    <div className="w-screen h-screen flex justify-center items-center">
+      <Loader />
     </div>
   ) : id ? (
     <div className="w-screen h-screen flex justify-center items-center">

@@ -3,15 +3,14 @@ import { HoverEffect } from "../components/HoverEffect";
 import { fetchPokemon } from "../api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../store";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const [inputField, setInputField] = useState("");
 
-  const [pokemons, setPokemons] = useState<
-    Array<{ name: string; url: string }>
-  >([]);
+  const { pokemons, setPokemons } = useStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputField(e.target.value);
@@ -23,6 +22,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (pokemons.length > 0) return;
+
     const fetchPokemonsData = async () => {
       const data: Array<{ name: string; url: string }> = await fetchPokemon();
       setPokemons(data);
